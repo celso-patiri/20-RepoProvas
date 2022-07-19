@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { PostTestReq } from "../interfaces/express";
 import testsService from "../services/tests.service";
 
@@ -7,6 +7,12 @@ const create = async (req: PostTestReq, res: Response) => {
   res.sendStatus(201);
 };
 
+const getAllByDiscipline = async (_req: Request, res: Response) => {
+  const tests = await testsService.getAllByDiscipline();
+  res.status(200).send(tests);
+};
+
 export default {
   create,
+  getAllByDiscipline,
 };

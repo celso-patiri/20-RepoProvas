@@ -9,5 +9,6 @@ const router = Router();
 router.use(verifyJwtHeader);
 
 router.post("/tests", validateBody(CreateTestSchema), testsController.create);
+router.get("/tests/disciplines", testsController.getAllByDiscipline);
 
 export default router;
