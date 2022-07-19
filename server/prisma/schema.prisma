@@ -49,18 +49,18 @@ model Discipline {
 }
 
 model TeacherDiscipline {
-  id Int @id @default(autoincrement())
-
   Teacher   Teacher @relation(fields: [teacherId], references: [id])
   teacherId Int     @map("teacher_id")
 
   Discipline   Discipline @relation(fields: [disciplineId], references: [id])
   disciplineId Int        @map("discipline_id")
 
+  Test Test[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  Test Test[]
+  @@id([teacherId, disciplineId])
   @@map("teachers_disciplines")
 }
 
@@ -96,8 +96,9 @@ model Test {
   Category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int      @map("category_id")
 
-  TeacherDiscipline   TeacherDiscipline @relation(fields: [teacherDisciplineId], references: [id])
-  teacherDisciplineId Int               @map("teacher_discipline_id")
+  TeacherDiscipline TeacherDiscipline @relation(fields: [teacherId, disciplineId], references: [teacherId, disciplineId])
+  teacherId         Int
+  disciplineId      Int
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

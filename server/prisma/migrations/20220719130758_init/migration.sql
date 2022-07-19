@@ -32,13 +32,12 @@ CREATE TABLE "disciplines" (
 
 -- CreateTable
 CREATE TABLE "teachers_disciplines" (
-    "id" SERIAL NOT NULL,
     "teacher_id" INTEGER NOT NULL,
     "discipline_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "teachers_disciplines_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "teachers_disciplines_pkey" PRIMARY KEY ("teacher_id","discipline_id")
 );
 
 -- CreateTable
@@ -67,7 +66,8 @@ CREATE TABLE "tests" (
     "name" TEXT NOT NULL,
     "pdf_url" TEXT NOT NULL,
     "category_id" INTEGER NOT NULL,
-    "teacher_discipline_id" INTEGER NOT NULL,
+    "teacherId" INTEGER NOT NULL,
+    "disciplineId" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -99,7 +99,7 @@ ALTER TABLE "teachers_disciplines" ADD CONSTRAINT "teachers_disciplines_teacher_
 ALTER TABLE "teachers_disciplines" ADD CONSTRAINT "teachers_disciplines_discipline_id_fkey" FOREIGN KEY ("discipline_id") REFERENCES "disciplines"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "tests" ADD CONSTRAINT "tests_teacher_discipline_id_fkey" FOREIGN KEY ("teacher_discipline_id") REFERENCES "teachers_disciplines"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "tests" ADD CONSTRAINT "tests_teacherId_disciplineId_fkey" FOREIGN KEY ("teacherId", "disciplineId") REFERENCES "teachers_disciplines"("teacher_id", "discipline_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "tests" ADD CONSTRAINT "tests_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
