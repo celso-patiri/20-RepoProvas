@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Teacher {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  TeacherDisciplines TeacherDiscipline[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("teachers")
+}
+
+model Discipline {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  TeachersDiscipline TeacherDiscipline[]
+
+  Term   Term @relation(fields: [termId], references: [id])
+  termId Int  @map("term_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("disciplines")
+}
+
+model TeacherDiscipline {
+  id Int @id @default(autoincrement())
+
+  Teacher   Teacher @relation(fields: [teacherId], references: [id])
+  teacherId Int     @map("teacher_id")
+
+  Discipline   Discipline @relation(fields: [disciplineId], references: [id])
+  disciplineId Int        @map("discipline_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  Test Test[]
+  @@map("teachers_disciplines")
+}
+
+model Term {
+  id     Int @id @default(autoincrement())
+  number Int @unique
+
+  Disciplines Discipline[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("terms")
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  Test Test[]
+
+  @@map("categories")
+}
+
+model Test {
+  id     Int    @id @default(autoincrement())
+  name   String
+  pdfUrl String @map("pdf_url")
+
+  Category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int      @map("category_id")
+
+  TeacherDiscipline   TeacherDiscipline @relation(fields: [teacherDisciplineId], references: [id])
+  teacherDisciplineId Int               @map("teacher_discipline_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tests")
+}
