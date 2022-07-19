@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
 import { UnauthorizedException } from "../../common/exceptions";
-import { decodeJwt } from "../../common/utils/jwt";
+import { decodeJwt } from "../../common/utils/auth";
 import { JwtHeaderReq } from "../../interfaces/express";
 
 export default async function verifyJwtHeader(
