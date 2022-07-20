@@ -1,8 +1,4 @@
-import {
-  ConflictException,
-  NotFoundException,
-  UnauthorizedException,
-} from "../common/exceptions";
+import { ConflictException, UnauthorizedException } from "../common/exceptions";
 import * as utils from "../common/utils/auth";
 import { SignUserDto } from "../interfaces/models";
 import usersRepository from "../repositories/users.repository";
@@ -32,11 +28,8 @@ const validateCredentials = async (user: SignUserDto) => {
   const existingUser = await findByEmail(email);
   if (!existingUser) throw new UnauthorizedException("Invalid credentials");
 
-  try {
-    await utils.compareHash(password, existingUser.password);
-  } catch (err) {
-    throw new UnauthorizedException("Invalid credentials");
-  }
+  const isValidPassword = await utils.compareHash(password, existingUser.password);
+  if (!isValidPassword) throw new UnauthorizedException("Invalid credentials");
 
   return utils.createJwt(existingUser.id, email);
 };
