@@ -24,7 +24,7 @@ const create = async (test: CreateTestDto) => {
 };
 
 const getAllByDiscipline = async () => {
-  return termsService.getAllDisciplinesAndTests();
+  return termsService.getAllTestsByDisciplines();
 };
 
 export default {

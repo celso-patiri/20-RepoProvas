@@ -18,8 +18,15 @@ const getAllDisciplinesAndTests = async () => {
                 select: {
                   name: true,
                   createdAt: true,
+                  Category: {
+                    select: { name: true },
+                  },
                 },
+                orderBy: { categoryId: "asc" },
               },
+            },
+            where: {
+              Test: { some: { id: { not: undefined } } },
             },
           },
         },
