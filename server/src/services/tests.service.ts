@@ -27,7 +27,12 @@ const getAllByDiscipline = async () => {
   return termsService.getAllTestsByDisciplines();
 };
 
+const getAllGroupByTeacher = async () => {
+  return teachersService.getAllTestsGroupByTeacher();
+};
+
 export default {
   create,
   getAllByDiscipline,
+  getAllGroupByTeacher,
 };

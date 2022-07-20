@@ -1,4 +1,4 @@
-import { mapCategoriesToDiscipline } from "../common/utils/tests/formatting";
+import { mapCategoriesToDiscipline } from "../common/utils/tests";
 import termsRepository from "../repositories/terms.repository";
 
 const getAllTestsByDisciplines = async () => {

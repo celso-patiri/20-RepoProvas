@@ -10,5 +10,6 @@ router.use(verifyJwtHeader);
 
 router.post("/tests", validateBody(CreateTestSchema), testsController.create);
 router.get("/tests/disciplines", testsController.getAllByDiscipline);
+router.get("/tests/teachers", testsController.getAllGroupByTeacher);
 
 export default router;

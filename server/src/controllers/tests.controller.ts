@@ -12,7 +12,13 @@ const getAllByDiscipline = async (_req: Request, res: Response) => {
   res.status(200).send(tests);
 };
 
+const getAllGroupByTeacher = async (_req: Request, res: Response) => {
+  const tests = await testsService.getAllGroupByTeacher();
+  res.status(200).send(tests);
+};
+
 export default {
   create,
   getAllByDiscipline,
+  getAllGroupByTeacher,
 };
