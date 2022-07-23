@@ -7,8 +7,7 @@
     "start": "node dist/index.js",
     "build": "tsc",
     "dev": "nodemon src/index.ts",
-    "test": "yarn dotenv -e .env.test jest -i",
-    "test:setup": "yarn dotenv -e .env.test prisma migrate dev && yarn dotenv -e .env.test jest -i"
+    "test": "yarn dotenv -e .env.test prisma migrate dev && yarn dotenv -e .env.test jest -i"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

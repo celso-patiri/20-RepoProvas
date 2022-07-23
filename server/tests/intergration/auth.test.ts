@@ -1,6 +1,6 @@
 import supertest from "supertest";
 import app from "../../src/app";
-import { UserFactory } from "../factories/user.factory";
+import { UserFactory } from "../factories";
 
 const agent = supertest(app);
 
