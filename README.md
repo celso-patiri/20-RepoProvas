@@ -1,6 +1,8 @@
+#
+
 <div align="center">
 
-  <img src="./.github/logo.svg" alt="Logo" width="150">
+  <img src="./.github/logo.svg" alt="Logo" width="250">
   
   <h3 align="center">
      Document sharing backend app
