@@ -6,10 +6,13 @@ import validateBody from "../middleware/validation/validateBody";
 
 const router = Router();
 
-router.use(verifyJwtHeader);
-
-router.post("/tests", validateBody(CreateTestSchema), testsController.create);
-router.get("/tests/disciplines", testsController.getAllByDiscipline);
-router.get("/tests/teachers", testsController.getAllGroupByTeacher);
+router.post(
+  "/tests",
+  verifyJwtHeader,
+  validateBody(CreateTestSchema),
+  testsController.create,
+);
+router.get("/tests/disciplines", verifyJwtHeader, testsController.getAllByDiscipline);
+router.get("/tests/teachers", verifyJwtHeader, testsController.getAllGroupByTeacher);
 
 export default router;
